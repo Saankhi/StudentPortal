@@ -39,7 +39,7 @@ router.get('/getCoursesDetails' , async (req,res) => {
 router.get('/getCourseDetails/:_id' , async (req,res) => {
       const courseid = req.params._id
     try{
-        const courseInfo = await Course.findById(courseid)
+        const courseInfo = await Course .findById(courseid)
         res.status(201).json({ 
             CourseDetails: courseInfo
         })

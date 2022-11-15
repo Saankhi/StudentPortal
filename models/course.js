@@ -11,16 +11,16 @@ const courseSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    WeeklyHours: {
-        type: Number,
+    InstituteName: {
+        type: String,
         required: true
     },
-    FacultyAllocated: {
-        type: Number,
+    Address: {
+        type: String,
         required: true
     },
-    MaximumCapacity: {
-        type: Number,
+    CourseDuration: {
+        type: String,
         required: true
     }
   
