@@ -54,13 +54,25 @@ router.get('/getStudent/:_id' , async (req,res) => {
 router.put('/updateStudent/:_id' , async (req,res) => {
     const studentid = req.params._id
     const allowedUpdates = ['Firstname','Lastname','Email','Mobile']
+    const updates = Object.keys(req.body)
+    const updatesOps = {}
+
+    updates.forEach(arr => {
+        if(!allowedUpdates.includes(arr)){
+            res.status(400).json({
+                message: "Invalid Update Request",
+            })
+            return
+        }
+          updatesOps[arr] = req.body[arr]
+    })
     
     
   try{
-      const stuInfo = await Student.updateOne({id: studentid} , {$set : allowedUpdates})
+      const stuInfo = await Student.updateOne({id: studentid} , {$set : updatesOps})
       res.status(201).json({ 
           message: "Student data has been updated successfully" ,
-          UpdatedStudentInfo: stuInfo
+          stuInfo
       })
   
   }catch(err){
