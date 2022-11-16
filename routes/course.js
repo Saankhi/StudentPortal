@@ -56,7 +56,7 @@ router.patch('/updateCourseDetails/:_id' , async (req,res) => {
     const allowedUpdates = ['CourseName','CourseId','InstituteName','Address','CourseDuration']
     const updates = Object.keys(req.body)
     const updatesOps = {} 
-    console.log(req.body)
+    
     
     updates.forEach(arr => {
         if(!allowedUpdates.includes(arr))
@@ -70,7 +70,7 @@ router.patch('/updateCourseDetails/:_id' , async (req,res) => {
       })
 
      try{ 
-        console.log(updatesOps)
+        
         const courseInfo = await Course.updateOne({_id: courseid} , {$set : updatesOps})
       res.status(201).json({
         message: "Course data has been updated successfully",
