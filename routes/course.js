@@ -24,7 +24,7 @@ router.post('/fillCourseDetails' , async (req,res) => {
 router.get('/getCoursesDetails' , async (req,res) => {
     try{
         const courseInfo = await Course.find()
-        res.status(201).json({
+        return res.status(201).json({
             //count: courseInfo.length , 
             CoursesInfo: courseInfo
         })
@@ -39,8 +39,8 @@ router.get('/getCoursesDetails' , async (req,res) => {
 router.get('/getCourseDetails/:_id' , async (req,res) => {
       const courseid = req.params._id
     try{
-        const courseInfo = await Course .findById(courseid)
-        res.status(201).json({ 
+        const courseInfo = await Course .findById({_id : courseid})
+        return res.status(201).json({ 
             CourseDetails: courseInfo
         })
     
@@ -51,9 +51,9 @@ router.get('/getCourseDetails/:_id' , async (req,res) => {
    
 })
 
-router.patch('/updateCourseDetails/:_id' , async (req,res) => {
+router.put('/updateCourseDetails/:_id' , async (req,res) => {
     const courseid = req.params._id
-    const allowedUpdates = ['CourseName','CourseId','InstituteName','Address','CourseDuration']
+    const allowedUpdates = ['CourseName','CourseId','InstituteName','Address','CourseDuration','CourseURL']
     const updates = Object.keys(req.body)
     const updatesOps = {} 
     
@@ -61,10 +61,10 @@ router.patch('/updateCourseDetails/:_id' , async (req,res) => {
     updates.forEach(arr => {
         if(!allowedUpdates.includes(arr))
         {
-            res.status(400).json({
+            return res.status(400).json({
             message: "Invalid update request"
            })
-           return
+           
         }
         updatesOps[arr] = req.body[arr]
       })
@@ -72,14 +72,14 @@ router.patch('/updateCourseDetails/:_id' , async (req,res) => {
      try{ 
         
         const courseInfo = await Course.updateOne({_id: courseid} , {$set : updatesOps})
-      res.status(201).json({
+        return  res.status(201).json({
         message: "Course data has been updated successfully",
         courseInfo
       })
   
   }catch(err){
       console.log(err)
-      res.status(400).json({err})
+      res.status(400).json({Error: err})
   }
  
 })
@@ -87,8 +87,8 @@ router.patch('/updateCourseDetails/:_id' , async (req,res) => {
 router.delete('/deleteCourse/:_id' , async (req,res) => {
     const courseid = req.params._id
   try{
-      const courseInfo = await Course.deleteOne({courseid})
-      res.status(201).json({ 
+      const courseInfo = await Course.deleteOne({_id: courseid})
+       return res.status(201).json({ 
           message: 'Selected course has been deleted successfully', courseInfo
       })
   

@@ -3,38 +3,43 @@ const mongoose = require('mongoose')
 const studentSchema = new mongoose.Schema({
     Firstname: {
         type: String,
-        required: true
+        //required: true
     },
 
     Lastname: {
         type: String,
-        required: true
+        //required: true
     },
     Gender: {
         type: String,
-        required: true
+       // required: true
     },
     DOB: {
         type: Date,
-        required: true
+      //  required: true
     },
     Email: {
         type: String,
-        required: true,
-        unique: true
+       // required: true,
+       // unique: true
     },
     Branch: {
         type: String ,
-        required: true
+       // required: true
     },
     CollegeName: {
         type: String ,
-        required: true
+       // required: true
     },
     Mobile: {
         type: Number,
-        required: true,
-        unique: true 
+       // required: true,
+       // unique: true 
+    },
+    Image: {
+        data: Buffer,
+        contentType: String,
+        
     }
         
 

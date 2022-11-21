@@ -22,6 +22,11 @@ const courseSchema = new mongoose.Schema({
     CourseDuration: {
         type: String,
         required: true
+    },
+    CourseURL: {
+        type: String,
+        required: true
+        
     }
   
   
